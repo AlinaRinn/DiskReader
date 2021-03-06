@@ -66,38 +66,43 @@ namespace DiskReader {
                 lbl2.Dock = DockStyle.Fill;
                 lbl2.Text = d.DriveType.ToString();
 
-                Label lbl3 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl3, i, 2);
-                lbl3.Dock = DockStyle.Fill;
-                lbl3.Text = d.VolumeLabel;
-                if (d.VolumeLabel == "") {
-                    lbl3.Text = "Unknown";
+                if (d.IsReady == true)
+                {
+                    Label lbl3 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl3, i, 2);
+                    lbl3.Dock = DockStyle.Fill;
+                    lbl3.Text = d.VolumeLabel;
+                    if (d.VolumeLabel == "")
+                    {
+                        lbl3.Text = "Unknown";
+                    }
+
+                    Label lbl4 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl4, i, 3);
+                    lbl4.Dock = DockStyle.Fill;
+                    lbl4.Text = d.DriveFormat;
+
+
+                    Label lbl5 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl5, i, 4);
+                    long tmp0 = (d.AvailableFreeSpace / 1024 / 1024 / 1024);
+                    lbl5.Dock = DockStyle.Fill;
+                    lbl5.Text = tmp0.ToString() + " GB";
+
+                    Label lbl6 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl6, i, 5);
+                    long tmp1 = (d.TotalSize / 1024 / 1024 / 1024);
+                    lbl6.Dock = DockStyle.Fill;
+                    lbl6.Text = tmp1.ToString() + " GB";
+
+                    Label lbl7 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl7, i, 6);
+                    long tmp = tmp1 - tmp0;
+                    lbl7.Dock = DockStyle.Fill;
+                    lbl7.Text = tmp.ToString() + " GB";
+
+                    i++; tmp0 = 0; tmp1 = 0; tmp = 0;
                 }
-
-                Label lbl4 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl4, i, 3);
-                lbl4.Dock = DockStyle.Fill;
-                lbl4.Text = d.DriveFormat;
-
-                Label lbl5 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl5, i, 4);
-                long tmp0 = (d.AvailableFreeSpace / 1024 / 1024 / 1024);
-                lbl5.Dock = DockStyle.Fill;
-                lbl5.Text = tmp0.ToString() + " GB";
-
-                Label lbl6 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl6, i, 5);
-                long tmp1 = (d.TotalSize / 1024 / 1024 / 1024);
-                lbl6.Dock = DockStyle.Fill;
-                lbl6.Text = tmp1.ToString() + " GB";
-
-                Label lbl7 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl7, i, 6);
-                long tmp = tmp1 - tmp0;
-                lbl7.Dock = DockStyle.Fill;
-                lbl7.Text = tmp.ToString() + " GB";
-
-                i++; tmp0 = 0; tmp1 = 0; tmp = 0;
 
             }
         }
@@ -158,38 +163,42 @@ namespace DiskReader {
                 lbl2.Dock = DockStyle.Fill;
                 lbl2.Text = d.DriveType.ToString();
 
-                Label lbl3 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl3, i, 2);
-                lbl3.Dock = DockStyle.Fill;
-                lbl3.Text = d.VolumeLabel;
-                if (d.VolumeLabel == "") {
-                    lbl3.Text = "Unknown";
+                if (d.IsReady == true)
+                {
+                    Label lbl3 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl3, i, 2);
+                    lbl3.Dock = DockStyle.Fill;
+                    lbl3.Text = d.VolumeLabel;
+                    if (d.VolumeLabel == "")
+                    {
+                        lbl3.Text = "Unknown";
+                    }
+
+                    Label lbl4 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl4, i, 3);
+                    lbl4.Dock = DockStyle.Fill;
+                    lbl4.Text = d.DriveFormat;
+
+                    Label lbl5 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl5, i, 4);
+                    long tmp0 = (d.AvailableFreeSpace / 1024 / 1024 / 1024);
+                    lbl5.Dock = DockStyle.Fill;
+                    lbl5.Text = tmp0.ToString() + " GB";
+
+                    Label lbl6 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl6, i, 5);
+                    long tmp1 = (d.TotalSize / 1024 / 1024 / 1024);
+                    lbl6.Dock = DockStyle.Fill;
+                    lbl6.Text = tmp1.ToString() + " GB";
+
+                    Label lbl7 = new Label();
+                    tableLayoutPanel1.Controls.Add(lbl7, i, 6);
+                    long tmp = tmp1 - tmp0;
+                    lbl7.Dock = DockStyle.Fill;
+                    lbl7.Text = tmp.ToString() + " GB";
+
+                    i++; tmp0 = 0; tmp1 = 0; tmp = 0;
                 }
-
-                Label lbl4 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl4, i, 3);
-                lbl4.Dock = DockStyle.Fill;
-                lbl4.Text = d.DriveFormat;
-
-                Label lbl5 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl5, i, 4);
-                long tmp0 = (d.AvailableFreeSpace / 1024 / 1024 / 1024);
-                lbl5.Dock = DockStyle.Fill;
-                lbl5.Text = tmp0.ToString() + " GB";
-
-                Label lbl6 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl6, i, 5);
-                long tmp1 = (d.TotalSize / 1024 / 1024 / 1024);
-                lbl6.Dock = DockStyle.Fill;
-                lbl6.Text = tmp1.ToString() + " GB";
-
-                Label lbl7 = new Label();
-                tableLayoutPanel1.Controls.Add(lbl7, i, 6);
-                long tmp = tmp1 - tmp0;
-                lbl7.Dock = DockStyle.Fill;
-                lbl7.Text = tmp.ToString() + " GB";
-
-                i++; tmp0 = 0; tmp1 = 0; tmp = 0;
             }
         }
     }
