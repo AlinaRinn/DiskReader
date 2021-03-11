@@ -158,24 +158,25 @@ namespace DiskReader {
             // 
             // button_set
             // 
-            this.button_set.Location = new System.Drawing.Point(747, 10);
+            this.button_set.Location = new System.Drawing.Point(773, 10);
             this.button_set.Name = "button_set";
-            this.button_set.Size = new System.Drawing.Size(75, 23);
+            this.button_set.Size = new System.Drawing.Size(49, 23);
             this.button_set.TabIndex = 8;
             this.button_set.Text = "Set";
             this.button_set.UseVisualStyleBackColor = true;
+            this.button_set.Click += new System.EventHandler(this.button_set_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(356, 12);
+            this.textBox1.Location = new System.Drawing.Point(344, 12);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(385, 20);
+            this.textBox1.Size = new System.Drawing.Size(423, 20);
             this.textBox1.TabIndex = 9;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(300, 18);
+            this.label1.Location = new System.Drawing.Point(288, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 10;

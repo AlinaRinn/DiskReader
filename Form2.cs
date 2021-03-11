@@ -28,7 +28,7 @@ namespace DiskReader {
 
         private void PopulateTreeView() {
             TreeNode rootNode;
-            DirectoryInfo info = new DirectoryInfo(@"C:\Users\nik17\Documents"); 
+            DirectoryInfo info = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)); 
             if (info.Exists) {
                 rootNode = new TreeNode(info.Name);
                 rootNode.Tag = info;
@@ -77,6 +77,11 @@ namespace DiskReader {
             }
 
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        private void button_set_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
