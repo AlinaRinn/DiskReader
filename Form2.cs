@@ -56,6 +56,7 @@ namespace DiskReader {
                 catch(System.UnauthorizedAccessException)
                 {
                     MessageBox.Show("System: Access denied", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBox1.Text = "";
                 }
             }
         }
@@ -98,8 +99,10 @@ namespace DiskReader {
                     TreeNode rootNode;
                     rootNode = new TreeNode(info.Name);
                     rootNode.Tag = info;
+                    this.Cursor = Cursors.WaitCursor;
                     GetDirectories(info.GetDirectories(), rootNode);
                     treeView1.Nodes.Add(rootNode);
+                    this.Cursor = Cursors.Default;
                 }
             }
             else
