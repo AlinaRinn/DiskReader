@@ -44,11 +44,19 @@ namespace DiskReader {
                 aNode = new TreeNode(subDir.Name, 0, 0);
                 aNode.Tag = subDir;
                 aNode.ImageKey = "folder";
-                subSubDirs = subDir.GetDirectories();
-                if (subSubDirs.Length != 0) {
-                    GetDirectories(subSubDirs, aNode);
+                try
+                {
+                    subSubDirs = subDir.GetDirectories();
+                    if (subSubDirs.Length != 0)
+                    {
+                        GetDirectories(subSubDirs, aNode);
+                    }
+                    nodeToAddTo.Nodes.Add(aNode);
                 }
-                nodeToAddTo.Nodes.Add(aNode);
+                catch(System.UnauthorizedAccessException)
+                {
+                    MessageBox.Show("System: Access denied", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -81,7 +89,23 @@ namespace DiskReader {
 
         private void button_set_Click(object sender, EventArgs e)
         {
-
+            if (textBox1.Text != "")
+            {
+                DirectoryInfo info = new DirectoryInfo(textBox1.Text);
+                if (info.Exists)
+                {
+                    treeView1.Nodes.Clear();
+                    TreeNode rootNode;
+                    rootNode = new TreeNode(info.Name);
+                    rootNode.Tag = info;
+                    GetDirectories(info.GetDirectories(), rootNode);
+                    treeView1.Nodes.Add(rootNode);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Path: Invalid Syntax", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
