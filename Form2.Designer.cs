@@ -93,6 +93,7 @@ namespace DiskReader {
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.Size = new System.Drawing.Size(270, 484);
             this.treeView1.TabIndex = 0;
+            this.treeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
             // 
             // imageList1
             // 
@@ -137,6 +138,7 @@ namespace DiskReader {
             this.button_delete.TabIndex = 5;
             this.button_delete.Text = "Delete";
             this.button_delete.UseVisualStyleBackColor = true;
+            this.button_delete.Click += new System.EventHandler(this.button_delete_Click);
             // 
             // button_copy
             // 
@@ -146,6 +148,7 @@ namespace DiskReader {
             this.button_copy.TabIndex = 6;
             this.button_copy.Text = "Copy";
             this.button_copy.UseVisualStyleBackColor = true;
+            this.button_copy.Click += new System.EventHandler(this.button_copy_Click);
             // 
             // button_rename
             // 
@@ -155,6 +158,7 @@ namespace DiskReader {
             this.button_rename.TabIndex = 7;
             this.button_rename.Text = "Rename";
             this.button_rename.UseVisualStyleBackColor = true;
+            this.button_rename.Click += new System.EventHandler(this.button_rename_Click);
             // 
             // button_set
             // 
