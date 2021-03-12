@@ -146,7 +146,7 @@ namespace DiskReader {
             this.button_copy.Name = "button_copy";
             this.button_copy.Size = new System.Drawing.Size(79, 23);
             this.button_copy.TabIndex = 6;
-            this.button_copy.Text = "Copy";
+            this.button_copy.Text = "Replace";
             this.button_copy.UseVisualStyleBackColor = true;
             this.button_copy.Click += new System.EventHandler(this.button_copy_Click);
             // 

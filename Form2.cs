@@ -165,14 +165,28 @@ namespace DiskReader
         {
             string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
             Directory.Delete(sourcedir, true);
-            treeView1.Refresh();
+            DirectoryInfo info = new DirectoryInfo(path);
+            treeView1.Nodes.Clear();
+            TreeNode rootNode;
+            rootNode = new TreeNode(info.Name);
+            rootNode.Tag = info;
+            GetDirectories(info.GetDirectories(), rootNode);
+            treeView1.Nodes.Add(rootNode);
         }
 
         private void button_copy_Click(object sender, EventArgs e)
         {
             string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
-            Directory.Move(sourcedir, path);
-            treeView1.Refresh();
+            Form3 f = new Form3(this);
+            f.Show();
+            Directory.Move(sourcedir, f.tmp);
+            DirectoryInfo info = new DirectoryInfo(path);
+            treeView1.Nodes.Clear();
+            TreeNode rootNode;
+            rootNode = new TreeNode(info.Name);
+            rootNode.Tag = info;
+            GetDirectories(info.GetDirectories(), rootNode);
+            treeView1.Nodes.Add(rootNode);
         }
     }
 }
