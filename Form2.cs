@@ -160,8 +160,10 @@ namespace DiskReader
             if (null != e.Label)
             {
                 string sourcedir = treeView1.SelectedNode.FullPath.ToString();
+                DirectoryInfo di = new DirectoryInfo(sourcedir);
                 Directory.CreateDirectory(sourcedir);
-                Directory.Move(sourcedir, e.Label); Name = label;
+                string target = Path.Combine(sourcedir, e.Label);
+                di.MoveTo(target);
             }
         }
 
@@ -192,7 +194,30 @@ namespace DiskReader
             Form3 f = new Form3(this);
             f.ShowDialog();
             MessageBox.Show("Source path:\n\n" + sourcedir + "\n\nDestination path:\n\n" + f.tmp, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Directory.Move(sourcedir, f.tmp);
+            DirectoryInfo info = new DirectoryInfo(path);
+            try
+            {
+                Directory.Move(sourcedir, f.tmp);
+            }
+            catch(System.IO.IOException)
+            {
+                MessageBox.Show("Unknown Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (System.ArgumentException)
+            {
+                MessageBox.Show("Invalid Syntax" + f.tmp, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            treeView1.Nodes.Clear();
+            TreeNode rootNode;
+            rootNode = new TreeNode(info.Name);
+            rootNode.Tag = info;
+            GetDirectories(info.GetDirectories(), rootNode);
+            treeView1.Nodes.Add(rootNode);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
             DirectoryInfo info = new DirectoryInfo(path);
             treeView1.Nodes.Clear();
             TreeNode rootNode;
