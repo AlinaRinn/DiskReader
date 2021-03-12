@@ -119,6 +119,10 @@ namespace DiskReader
                     treeView1.Nodes.Add(rootNode);
                     this.Cursor = Cursors.Default;
                 }
+                else
+                {
+                    MessageBox.Show("Path: Invalid Syntax", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
