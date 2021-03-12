@@ -168,21 +168,30 @@ namespace DiskReader
         private void button_delete_Click(object sender, EventArgs e)
         {
             string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
-            Directory.Delete(sourcedir, true);
-            DirectoryInfo info = new DirectoryInfo(path);
-            treeView1.Nodes.Clear();
-            TreeNode rootNode;
-            rootNode = new TreeNode(info.Name);
-            rootNode.Tag = info;
-            GetDirectories(info.GetDirectories(), rootNode);
-            treeView1.Nodes.Add(rootNode);
+            try
+            {
+                Directory.Delete(sourcedir, true);
+                DirectoryInfo info = new DirectoryInfo(path);
+                treeView1.Nodes.Clear();
+                TreeNode rootNode;
+                rootNode = new TreeNode(info.Name);
+                rootNode.Tag = info;
+                GetDirectories(info.GetDirectories(), rootNode);
+                treeView1.Nodes.Add(rootNode);
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show("Deleting Error: Incorrect path or access denied", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void button_copy_Click(object sender, EventArgs e)
         {
             string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
             Form3 f = new Form3(this);
-            f.Show();
+            f.ShowDialog();
+            MessageBox.Show("Source path:\n\n" + sourcedir + "\n\nDestination path:\n\n" + f.tmp, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Directory.Move(sourcedir, f.tmp);
             DirectoryInfo info = new DirectoryInfo(path);
             treeView1.Nodes.Clear();

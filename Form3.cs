@@ -19,7 +19,8 @@ namespace DiskReader
         public string tmp;
         public void button1_Click(object sender, EventArgs e)
         {
-            tmp = textBox2.ToString();
+            tmp = textBox2.Text;
+            this.Close();
         }
     }
 }
