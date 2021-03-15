@@ -168,14 +168,11 @@ namespace DiskReader
                 {
                     try
                     {
-                        MessageBox.Show(sourcedir, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show(sourcedir, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DirectoryInfo di = new DirectoryInfo(sourcedir);
-                        //string sourcedir2 = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString() + @"..\" + @"..\" + e.Label; 
-                        //DirectoryInfo dis = new DirectoryInfo(sourcedir2);
-                        //MessageBox.Show(sourcedir2 +"\n\n" + e.Label, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //Directory.CreateDirectory(sourcedir2);
-                        //Directory.Move(sourcedir, sourcedir2);
-                        di.MoveTo(di.Parent + "\\" + e.Label);
+                        string sous = sourcedir + @"..\" + @"..\" + @"\" + e.Label;
+                        //MessageBox.Show(sous, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        di.MoveTo(sous);
                     }
                     catch (IOException er)
                     {
@@ -284,3 +281,4 @@ namespace DiskReader
         }
     }
 }
+thr
