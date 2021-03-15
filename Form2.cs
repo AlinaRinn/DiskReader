@@ -130,13 +130,19 @@ namespace DiskReader
             }
         }
 
-        string selectedNodeText;
+        public string selectedNodeText;
+        public string sourcedir;
         private void button_rename_Click(object sender, EventArgs e)
         {
             TreeNode node = this.treeView1.SelectedNode as TreeNode;
             selectedNodeText = node.Text;
             this.treeView1.LabelEdit = true;
             node.BeginEdit();
+        }
+
+        private void treeView1_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
+        {
+            sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
         }
 
         private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -149,21 +155,25 @@ namespace DiskReader
                 MessageBox.Show("Invalid Name.\n" + "The step Name must not contain " + "following characters:\n \\ / : * ? \" < > |", "Edit Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (string.IsNullOrWhiteSpace(e.Label))
+            else if (string.IsNullOrWhiteSpace(e.Label))
             {
                 MessageBox.Show("Invalid name", "Error");
                 e.CancelEdit = true;
                 return;
             }
-
-            string label = (!string.IsNullOrEmpty(e.Label) ? e.Label : selectedNodeText);
-            if (null != e.Label)
+            else
             {
-                string sourcedir = treeView1.SelectedNode.FullPath.ToString();
-                DirectoryInfo di = new DirectoryInfo(sourcedir);
-                Directory.CreateDirectory(sourcedir);
-                string target = Path.Combine(sourcedir, e.Label);
-                di.MoveTo(target);
+                string label = (!string.IsNullOrEmpty(e.Label) ? e.Label : selectedNodeText);
+                if (null != e.Label)
+                {
+                    MessageBox.Show(sourcedir, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //DirectoryInfo di = new DirectoryInfo(sourcedir);
+                    string sourcedir2 = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString() + @"..\" + @"..\" + e.Label; 
+                    //DirectoryInfo dis = new DirectoryInfo(sourcedir2);
+                    MessageBox.Show(sourcedir2 +"\n\n" + e.Label, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Directory.CreateDirectory(sourcedir2);
+                    Directory.Move(sourcedir, sourcedir2);
+                }
             }
         }
 
@@ -226,5 +236,23 @@ namespace DiskReader
             GetDirectories(info.GetDirectories(), rootNode);
             treeView1.Nodes.Add(rootNode);
         }
+
+        private void button_file_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.InitialDirectory = "c:\\";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                label3.Text = openFileDialog1.FileName;
+                //DirectoryInfo info = new DirectoryInfo(openFileDialog1.FileName);
+            }
+        }
+
+        private void btn_delete_Click(object sender, EventArgs e)
+        {
+            File.Delete(label3.Text);
+            label3.Text = "";
+        }
+
     }
 }
