@@ -23,7 +23,7 @@ namespace DiskReader
         private void button1_Click(object sender, EventArgs e)
         {
             Form1 Form = new Form1();
-            Form.Show();
+            Form.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -166,13 +166,21 @@ namespace DiskReader
                 string label = (!string.IsNullOrEmpty(e.Label) ? e.Label : selectedNodeText);
                 if (null != e.Label)
                 {
-                    MessageBox.Show(sourcedir, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //DirectoryInfo di = new DirectoryInfo(sourcedir);
-                    string sourcedir2 = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString() + @"..\" + @"..\" + e.Label; 
-                    //DirectoryInfo dis = new DirectoryInfo(sourcedir2);
-                    MessageBox.Show(sourcedir2 +"\n\n" + e.Label, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Directory.CreateDirectory(sourcedir2);
-                    Directory.Move(sourcedir, sourcedir2);
+                    try
+                    {
+                        MessageBox.Show(sourcedir, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DirectoryInfo di = new DirectoryInfo(sourcedir);
+                        //string sourcedir2 = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString() + @"..\" + @"..\" + e.Label; 
+                        //DirectoryInfo dis = new DirectoryInfo(sourcedir2);
+                        //MessageBox.Show(sourcedir2 +"\n\n" + e.Label, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //Directory.CreateDirectory(sourcedir2);
+                        //Directory.Move(sourcedir, sourcedir2);
+                        di.MoveTo(di.Parent + "\\" + e.Label);
+                    }
+                    catch (IOException er)
+                    {
+                        MessageBox.Show(er.Message);
+                    }
                 }
             }
         }
@@ -254,5 +262,25 @@ namespace DiskReader
             label3.Text = "";
         }
 
+        private void btn_rename_Click(object sender, EventArgs e)
+        {
+            string sourcePath = label3.Text;
+            string destinationPath = label3.Text;
+            if (File.Exists(sourcePath))
+            {
+                FileInfo fi = new FileInfo(sourcePath);
+
+                fi.MoveTo(destinationPath);
+                MessageBox.Show("File renamed");
+            }
+            else if (Directory.Exists(sourcePath))
+            {
+                DirectoryInfo di = new DirectoryInfo(sourcePath);
+
+                di.MoveTo(destinationPath);
+                MessageBox.Show("Directory renamed");
+            }
+            this.Close();
+        }
     }
 }

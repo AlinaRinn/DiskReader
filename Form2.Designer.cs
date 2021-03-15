@@ -50,6 +50,7 @@ namespace DiskReader {
             this.label4 = new System.Windows.Forms.Label();
             this.btn_copy = new System.Windows.Forms.Button();
             this.btn_delete = new System.Windows.Forms.Button();
+            this.btn_rename = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -285,6 +286,7 @@ namespace DiskReader {
             // 
             // splitContainer3.Panel2
             // 
+            this.splitContainer3.Panel2.Controls.Add(this.btn_rename);
             this.splitContainer3.Panel2.Controls.Add(this.btn_delete);
             this.splitContainer3.Panel2.Controls.Add(this.label3);
             this.splitContainer3.Panel2.Controls.Add(this.btn_copy);
@@ -320,6 +322,16 @@ namespace DiskReader {
             this.btn_delete.Text = "Delete";
             this.btn_delete.UseVisualStyleBackColor = true;
             this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
+            // btn_rename
+            // 
+            this.btn_rename.Location = new System.Drawing.Point(475, 3);
+            this.btn_rename.Name = "btn_rename";
+            this.btn_rename.Size = new System.Drawing.Size(55, 34);
+            this.btn_rename.TabIndex = 21;
+            this.btn_rename.Text = "Rename";
+            this.btn_rename.UseVisualStyleBackColor = true;
+            this.btn_rename.Click += new System.EventHandler(this.btn_rename_Click);
             // 
             // Form2
             // 
@@ -383,5 +395,6 @@ namespace DiskReader {
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_copy;
         private System.Windows.Forms.Button btn_delete;
+        private System.Windows.Forms.Button btn_rename;
     }
 }
