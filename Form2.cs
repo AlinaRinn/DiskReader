@@ -38,7 +38,7 @@ namespace DiskReader
         }
 
         public string path;
-        private void PopulateTreeView()    // Create Tree
+        private void PopulateTreeView()                                                                                                                            // Create Tree
         {
             TreeNode rootNode;
             DirectoryInfo info = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
@@ -54,6 +54,7 @@ namespace DiskReader
 
         private void GetDirectories(DirectoryInfo[] subDirs, TreeNode nodeToAddTo)                                                                                // Fulling Tree
         {
+            this.Cursor = Cursors.WaitCursor;
             TreeNode aNode;
             DirectoryInfo[] subSubDirs;
             foreach (DirectoryInfo subDir in subDirs)
@@ -73,9 +74,9 @@ namespace DiskReader
                 catch (System.UnauthorizedAccessException)
                 {
                     MessageBox.Show("System: Access denied", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBox1.Text = "";
                 }
             }
+            this.Cursor = Cursors.Default;
         }
 
         void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)                                                                              // For Node's use
@@ -85,22 +86,22 @@ namespace DiskReader
             DirectoryInfo nodeDirInfo = (DirectoryInfo)newSelected.Tag;
             ListViewItem.ListViewSubItem[] subItems;
             ListViewItem item = null;
-
+            //int i = 0;
+            //List<string> listpath = new List<string>();
             foreach (DirectoryInfo dir in nodeDirInfo.GetDirectories())
             {
                 item = new ListViewItem(dir.Name, 0);
-                subItems = new ListViewItem.ListViewSubItem[]
-                    {new ListViewItem.ListViewSubItem(item, "Directory"),
-                     new ListViewItem.ListViewSubItem(item, dir.LastAccessTime.ToShortDateString())};
+                subItems = new ListViewItem.ListViewSubItem[] {new ListViewItem.ListViewSubItem(item, "Directory"), new ListViewItem.ListViewSubItem(item, dir.LastAccessTime.ToShortDateString())};
                 item.SubItems.AddRange(subItems);
                 listView1.Items.Add(item);
+                //listpath.Add(dir.FullName.ToString());                                                                                                         // Fulling listView
+                //i++;
             }
             foreach (FileInfo file in nodeDirInfo.GetFiles())
             {
                 item = new ListViewItem(file.Name, 1);
-                subItems = new ListViewItem.ListViewSubItem[]
-                    { new ListViewItem.ListViewSubItem(item, "File"),
-                      new ListViewItem.ListViewSubItem(item, file.LastAccessTime.ToShortDateString())};
+                subItems = new ListViewItem.ListViewSubItem[] { new ListViewItem.ListViewSubItem(item, "File"),
+                                                                new ListViewItem.ListViewSubItem(item, file.LastAccessTime.ToShortDateString())};
                 item.SubItems.AddRange(subItems);
                 listView1.Items.Add(item);
             }
@@ -110,6 +111,7 @@ namespace DiskReader
 
         private void button_refresh_Click(object sender, EventArgs e)                                                                                            // Refresh Tree
         {
+            this.Cursor = Cursors.WaitCursor; 
             DirectoryInfo info = new DirectoryInfo(path);
             treeView1.Nodes.Clear();
             TreeNode rootNode;
@@ -117,28 +119,20 @@ namespace DiskReader
             rootNode.Tag = info;
             GetDirectories(info.GetDirectories(), rootNode);
             treeView1.Nodes.Add(rootNode);
+            this.Cursor = Cursors.Default;
         }
 
         private void button_set_Click(object sender, EventArgs e)                                                                                              // Set custom path
         {
-            if (textBox1.Text != "")
+            FolderBrowserDialog folder = new FolderBrowserDialog();
+            folder.ShowDialog();
+            path = folder.SelectedPath.ToString();
+            if (path == "")
             {
-                DirectoryInfo info = new DirectoryInfo(textBox1.Text);
-                path = textBox1.Text;
-                if (info.Exists)
-                {
-                    // this.Cursor = Cursors.WaitCursor; this.Cursor = Cursors.Default;
-                    button_refresh_Click(sender, e);
-                }
-                else
-                {
-                    MessageBox.Show("Path: Invalid Syntax", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Set path", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
-            {
-                MessageBox.Show("Path: Invalid Syntax", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            button_refresh_Click(sender, e);
         }
 
         public string selectedNodeText;
@@ -191,7 +185,7 @@ namespace DiskReader
             }
             else
             {
-                string label = (!string.IsNullOrEmpty(e.Label) ? e.Label : selectedNodeText);
+                //string label = (!string.IsNullOrEmpty(e.Label) ? e.Label : selectedNodeText);
                 if (null != e.Label)
                 {
                     try
@@ -231,23 +225,53 @@ namespace DiskReader
             button_refresh_Click(sender, e);
         }
 
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)                                                        // Copy
+        {
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();     
+            Directory.CreateDirectory(destDirName);
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string tempPath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(tempPath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string tempPath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, tempPath, copySubDirs);
+                }
+            }
+        }
+
         private void button_copy_Click(object sender, EventArgs e)                                                                                            // Copy
         {
             if (treeView1.SelectedNode != null)
             {
-                string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+                sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
             }
-            Form3 f = new Form3(this);
-            f.ShowDialog();
-            MessageBox.Show("Source path:\n\n" + sourcedir + "\n\nDestination path:\n\n" + f.tmp, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            try
+            else
             {
-                Directory.Move(sourcedir, f.tmp);
+                MessageBox.Show("Choose folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            catch (IOException er)
-            {
-                MessageBox.Show(er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            FolderBrowserDialog folder = new FolderBrowserDialog();
+            MessageBox.Show("Choose destination folder", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            folder.ShowDialog();
+            string dest = folder.SelectedPath.ToString();
+            DirectoryCopy(sourcedir, dest, true);
             button_refresh_Click(sender, e);
         }
 
