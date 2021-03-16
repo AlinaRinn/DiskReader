@@ -20,19 +20,25 @@ namespace DiskReader
             this.treeView1.NodeMouseClick += new TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void diskInfoToolStripMenuItem_Click(object sender, EventArgs e)                                                                                    // Open DiskInfo
         {
             Form1 Form = new Form1();
             Form.ShowDialog();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)                                                                                      // Open About
+        {
+            Form4 Form = new Form4();
+            Form.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)                                                                                                        // Close form2
         {
             this.Close();
         }
 
         public string path;
-        private void PopulateTreeView()
+        private void PopulateTreeView()    // Create Tree
         {
             TreeNode rootNode;
             DirectoryInfo info = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
@@ -46,7 +52,7 @@ namespace DiskReader
             }
         }
 
-        private void GetDirectories(DirectoryInfo[] subDirs, TreeNode nodeToAddTo)
+        private void GetDirectories(DirectoryInfo[] subDirs, TreeNode nodeToAddTo)                                                                                // Fulling Tree
         {
             TreeNode aNode;
             DirectoryInfo[] subSubDirs;
@@ -72,7 +78,7 @@ namespace DiskReader
             }
         }
 
-        void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)                                                                              // For Node's use
         {
             TreeNode newSelected = e.Node;
             listView1.Items.Clear();
@@ -102,7 +108,18 @@ namespace DiskReader
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
-        private void button_set_Click(object sender, EventArgs e)
+        private void button_refresh_Click(object sender, EventArgs e)                                                                                            // Refresh Tree
+        {
+            DirectoryInfo info = new DirectoryInfo(path);
+            treeView1.Nodes.Clear();
+            TreeNode rootNode;
+            rootNode = new TreeNode(info.Name);
+            rootNode.Tag = info;
+            GetDirectories(info.GetDirectories(), rootNode);
+            treeView1.Nodes.Add(rootNode);
+        }
+
+        private void button_set_Click(object sender, EventArgs e)                                                                                              // Set custom path
         {
             if (textBox1.Text != "")
             {
@@ -110,14 +127,8 @@ namespace DiskReader
                 path = textBox1.Text;
                 if (info.Exists)
                 {
-                    treeView1.Nodes.Clear();
-                    TreeNode rootNode;
-                    rootNode = new TreeNode(info.Name);
-                    rootNode.Tag = info;
-                    this.Cursor = Cursors.WaitCursor;
-                    GetDirectories(info.GetDirectories(), rootNode);
-                    treeView1.Nodes.Add(rootNode);
-                    this.Cursor = Cursors.Default;
+                    // this.Cursor = Cursors.WaitCursor; this.Cursor = Cursors.Default;
+                    button_refresh_Click(sender, e);
                 }
                 else
                 {
@@ -132,30 +143,47 @@ namespace DiskReader
 
         public string selectedNodeText;
         public string sourcedir;
-        private void button_rename_Click(object sender, EventArgs e)
+        private void button_rename_Click(object sender, EventArgs e)                                                                                          // Renaming
         {
-            TreeNode node = this.treeView1.SelectedNode as TreeNode;
-            selectedNodeText = node.Text;
-            this.treeView1.LabelEdit = true;
-            node.BeginEdit();
+            if (treeView1.SelectedNode != null)
+            {
+                TreeNode node = this.treeView1.SelectedNode as TreeNode;
+                selectedNodeText = node.Text;
+                this.treeView1.LabelEdit = true;
+                node.BeginEdit();
+            }
+            else
+            {
+                MessageBox.Show("Choose folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void treeView1_BeforeLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+            if (treeView1.SelectedNode != null)
+            {
+                sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Choose folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
+
 
         private void treeView1_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
             TreeNode node = this.treeView1.SelectedNode as TreeNode;
             this.treeView1.LabelEdit = false;
 
-            if (e.Label.IndexOfAny(new char[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' }) != -1)
+            if (e.Label.IndexOfAny(new char[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' }) != -1)                                                           // Check 1
             {
                 MessageBox.Show("Invalid Name.\n" + "The step Name must not contain " + "following characters:\n \\ / : * ? \" < > |", "Edit Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else if (string.IsNullOrWhiteSpace(e.Label))
+            else if (string.IsNullOrWhiteSpace(e.Label))                                                                                                         // Check 2
             {
                 MessageBox.Show("Invalid name", "Error");
                 e.CancelEdit = true;
@@ -182,64 +210,68 @@ namespace DiskReader
             }
         }
 
-        private void button_delete_Click(object sender, EventArgs e)
+        private void button_delete_Click(object sender, EventArgs e)                                                                                           // Delete
         {
-            string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+            if (treeView1.SelectedNode != null) {
+                string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Choose folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 Directory.Delete(sourcedir, true);
-                DirectoryInfo info = new DirectoryInfo(path);
-                treeView1.Nodes.Clear();
-                TreeNode rootNode;
-                rootNode = new TreeNode(info.Name);
-                rootNode.Tag = info;
-                GetDirectories(info.GetDirectories(), rootNode);
-                treeView1.Nodes.Add(rootNode);
             }
             catch (System.IO.IOException)
             {
                 MessageBox.Show("Deleting Error: Incorrect path or access denied", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            button_refresh_Click(sender, e);
         }
 
-        private void button_copy_Click(object sender, EventArgs e)
+        private void button_copy_Click(object sender, EventArgs e)                                                                                            // Copy
         {
-            string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+            if (treeView1.SelectedNode != null)
+            {
+                string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+            }
             Form3 f = new Form3(this);
             f.ShowDialog();
             MessageBox.Show("Source path:\n\n" + sourcedir + "\n\nDestination path:\n\n" + f.tmp, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            DirectoryInfo info = new DirectoryInfo(path);
             try
             {
                 Directory.Move(sourcedir, f.tmp);
             }
-            catch(System.IO.IOException)
+            catch (IOException er)
             {
-                MessageBox.Show("Unknown Error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (System.ArgumentException)
-            {
-                MessageBox.Show("Invalid Syntax" + f.tmp, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            
-            treeView1.Nodes.Clear();
-            TreeNode rootNode;
-            rootNode = new TreeNode(info.Name);
-            rootNode.Tag = info;
-            GetDirectories(info.GetDirectories(), rootNode);
-            treeView1.Nodes.Add(rootNode);
+            button_refresh_Click(sender, e);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button_new_Click(object sender, EventArgs e)                                                                                            // New
         {
-            DirectoryInfo info = new DirectoryInfo(path);
-            treeView1.Nodes.Clear();
-            TreeNode rootNode;
-            rootNode = new TreeNode(info.Name);
-            rootNode.Tag = info;
-            GetDirectories(info.GetDirectories(), rootNode);
-            treeView1.Nodes.Add(rootNode);
+            if (treeView1.SelectedNode != null)
+            {
+                sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString() + @"\New folder";
+            }
+            else
+            {
+                MessageBox.Show("Choose folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {      
+                DirectoryInfo di = new DirectoryInfo(sourcedir);
+                di.Create();
+            }
+            catch (IOException er)
+            {
+                MessageBox.Show(er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            button_refresh_Click(sender, e);
         }
 
         private void button_file_Click(object sender, EventArgs e)
@@ -279,6 +311,6 @@ namespace DiskReader
             }
             this.Close();
         }
+
     }
 }
-thr

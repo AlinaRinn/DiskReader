@@ -81,9 +81,9 @@ namespace DiskReader
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 214);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(220, 13);
+            this.label1.Size = new System.Drawing.Size(117, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Информация обновляется каждые 10 сек";
+            this.label1.Text = "Refreshing after 10 sec";
             // 
             // Form1
             // 
@@ -94,6 +94,8 @@ namespace DiskReader
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "DiskInfo";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
