@@ -100,12 +100,13 @@ namespace DiskReader
             foreach (FileInfo file in nodeDirInfo.GetFiles())
             {
                 item = new ListViewItem(file.Name, 1);
-                subItems = new ListViewItem.ListViewSubItem[] { new ListViewItem.ListViewSubItem(item, "File"),
-                                                                new ListViewItem.ListViewSubItem(item, file.LastAccessTime.ToShortDateString())};
+                subItems = new ListViewItem.ListViewSubItem[] { new ListViewItem.ListViewSubItem(item, "File"), new ListViewItem.ListViewSubItem(item, file.LastAccessTime.ToShortDateString()) };
                 item.SubItems.AddRange(subItems);
                 listView1.Items.Add(item);
+                //string filepath = Path.GetFullPath(item.Text);
+                //MessageBox.Show(filepath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //int[] test = listView1.SelectedListView;
             }
-
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
@@ -321,20 +322,20 @@ namespace DiskReader
             string destinationPath = label3.Text;
             if (File.Exists(sourcePath))
             {
+                Form4 Form = new Form4();
+                Form.ShowDialog();
                 FileInfo fi = new FileInfo(sourcePath);
-
                 fi.MoveTo(destinationPath);
                 MessageBox.Show("File renamed");
             }
             else if (Directory.Exists(sourcePath))
             {
+                Form4 Form = new Form4();
+                Form.ShowDialog();
                 DirectoryInfo di = new DirectoryInfo(sourcePath);
-
                 di.MoveTo(destinationPath);
                 MessageBox.Show("Directory renamed");
             }
-            this.Close();
-        }
-
+        } 
     }
 }
