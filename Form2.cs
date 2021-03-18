@@ -299,7 +299,7 @@ namespace DiskReader
             button_refresh_Click(sender, e);
         }
 
-        private void button_file_Click(object sender, EventArgs e)
+        private void button_file_Click(object sender, EventArgs e)                                                                                       // Choose file
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = "c:\\";
@@ -310,32 +310,64 @@ namespace DiskReader
             }
         }
 
-        private void btn_delete_Click(object sender, EventArgs e)
+        private void btn_delete_Click(object sender, EventArgs e)                                                                                     // Delete file
         {
             File.Delete(label3.Text);
             label3.Text = "";
         }
 
-        private void btn_rename_Click(object sender, EventArgs e)
+        private void btn_rename_Click(object sender, EventArgs e)                                                                                    // Rename File     
         {
             string sourcePath = label3.Text;
-            string destinationPath = label3.Text;
             if (File.Exists(sourcePath))
             {
-                Form4 Form = new Form4();
-                Form.ShowDialog();
+                Form3 F1 = new Form3(this);
+                F1.ShowDialog();
                 FileInfo fi = new FileInfo(sourcePath);
-                fi.MoveTo(destinationPath);
-                MessageBox.Show("File renamed");
+                try
+                {
+                    fi.MoveTo(sourcePath + @"..\" + @"..\" + F1.tmp);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Имя пусто или содержит недопустимые знаки", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                catch(System.ArgumentException)
+                {
+                    MessageBox.Show("Имя содержит недопустимые знаки", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                MessageBox.Show("File renamed", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (Directory.Exists(sourcePath))
+            else
             {
-                Form4 Form = new Form4();
-                Form.ShowDialog();
-                DirectoryInfo di = new DirectoryInfo(sourcePath);
-                di.MoveTo(destinationPath);
-                MessageBox.Show("Directory renamed");
+                MessageBox.Show("Choose file", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        } 
+        }
+
+        string dest;
+        public void btn_copy_Click(object sender, EventArgs e)                                                                                // Copy File
+        {
+            string sourcePath = label3.Text;
+            if (File.Exists(sourcePath))
+            {
+                FolderBrowserDialog file = new FolderBrowserDialog();
+                file.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+                if (file.ShowDialog() == DialogResult.OK)
+                {
+                    dest = file.SelectedPath;
+                }
+                string name = Path.GetFileNameWithoutExtension(sourcePath);
+                File.Copy(sourcePath, dest + @"\" + name, true);
+            }
+            else
+            {
+                MessageBox.Show("Choose file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+        }
     }
 }

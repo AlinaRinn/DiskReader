@@ -328,6 +328,7 @@ namespace DiskReader {
             this.btn_copy.TabIndex = 19;
             this.btn_copy.Text = "Copy";
             this.btn_copy.UseVisualStyleBackColor = true;
+            this.btn_copy.Click += new System.EventHandler(this.btn_copy_Click);
             // 
             // menuStrip1
             // 
