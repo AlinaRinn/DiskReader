@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -348,26 +349,77 @@ namespace DiskReader
         }
 
         string dest;
+
         public void btn_copy_Click(object sender, EventArgs e)                                                                                // Copy File
+        {
+            if (backgroundWorker1.IsBusy != true)
+            {
+                backgroundWorker1.RunWorkerAsync();
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             string sourcePath = label3.Text;
             if (File.Exists(sourcePath))
             {
                 FolderBrowserDialog file = new FolderBrowserDialog();
                 file.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-                if (file.ShowDialog() == DialogResult.OK)
+                Thread thread = new Thread(() =>
                 {
-                    dest = file.SelectedPath;
-                }
-                string name = Path.GetFileNameWithoutExtension(sourcePath);
-                File.Copy(sourcePath, dest + @"\" + name, true);
+                    if (file.ShowDialog() == DialogResult.OK)
+                    {
+                        dest = file.SelectedPath;
+                    }
+                    try
+                    {
+                        string name = Path.GetFileName(sourcePath);
+                        File.Copy(sourcePath, dest + @"\" + name, true);
+                    }
+                    catch(IOException er)
+                    {
+                        MessageBox.Show(er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                });
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
+                thread.Join();
             }
             else
             {
                 MessageBox.Show("Choose file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                label6.Text = "Canceled!";
+            }
+            else if (e.Error != null)
+            {
+                label6.Text = "Error: " + e.Error.Message;
+            }
+            else
+            {
+                label6.Text = "Done!";
+                progressBar1.Value = 100;
+            }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void btn_stop_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker1.WorkerSupportsCancellation == true)
+            {
+                backgroundWorker1.CancelAsync();
+            }
         }
     }
 }
