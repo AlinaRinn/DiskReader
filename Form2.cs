@@ -53,6 +53,7 @@ namespace DiskReader
             }
         }
 
+        int i = 0;
         private void GetDirectories(DirectoryInfo[] subDirs, TreeNode nodeToAddTo)                                                                                // Fulling Tree
         {
             this.Cursor = Cursors.WaitCursor;
@@ -75,6 +76,8 @@ namespace DiskReader
                 catch (System.UnauthorizedAccessException)
                 {
                     MessageBox.Show("System: Access denied", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    i++;
+                    label7.Text = i.ToString();
                 }
             }
             this.Cursor = Cursors.Default;

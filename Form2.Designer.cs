@@ -58,6 +58,8 @@ namespace DiskReader {
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label6 = new System.Windows.Forms.Label();
             this.btn_stop = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -71,13 +73,15 @@ namespace DiskReader {
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(743, 587);
+            this.button2.Location = new System.Drawing.Point(1362, 1084);
+            this.button2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(80, 27);
+            this.button2.Size = new System.Drawing.Size(147, 50);
             this.button2.TabIndex = 3;
             this.button2.Text = "Exit";
             this.button2.UseVisualStyleBackColor = true;
@@ -85,7 +89,8 @@ namespace DiskReader {
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(12, 97);
+            this.splitContainer1.Location = new System.Drawing.Point(22, 179);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -95,8 +100,9 @@ namespace DiskReader {
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.listView1);
-            this.splitContainer1.Size = new System.Drawing.Size(810, 484);
-            this.splitContainer1.SplitterDistance = 276;
+            this.splitContainer1.Size = new System.Drawing.Size(1485, 894);
+            this.splitContainer1.SplitterDistance = 506;
+            this.splitContainer1.SplitterWidth = 7;
             this.splitContainer1.TabIndex = 4;
             // 
             // treeView1
@@ -105,9 +111,10 @@ namespace DiskReader {
             this.treeView1.ImageIndex = 0;
             this.treeView1.ImageList = this.imageList1;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(276, 484);
+            this.treeView1.Size = new System.Drawing.Size(506, 894);
             this.treeView1.TabIndex = 0;
             this.treeView1.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_BeforeLabelEdit);
             this.treeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
@@ -128,8 +135,9 @@ namespace DiskReader {
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(530, 484);
+            this.listView1.Size = new System.Drawing.Size(972, 894);
             this.listView1.SmallImageList = this.imageList1;
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -152,9 +160,10 @@ namespace DiskReader {
             // 
             // button_delete
             // 
-            this.button_delete.Location = new System.Drawing.Point(123, 3);
+            this.button_delete.Location = new System.Drawing.Point(226, 6);
+            this.button_delete.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_delete.Name = "button_delete";
-            this.button_delete.Size = new System.Drawing.Size(64, 23);
+            this.button_delete.Size = new System.Drawing.Size(117, 42);
             this.button_delete.TabIndex = 5;
             this.button_delete.Text = "Delete";
             this.button_delete.UseVisualStyleBackColor = true;
@@ -162,9 +171,10 @@ namespace DiskReader {
             // 
             // button_copy
             // 
-            this.button_copy.Location = new System.Drawing.Point(55, 3);
+            this.button_copy.Location = new System.Drawing.Point(101, 6);
+            this.button_copy.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_copy.Name = "button_copy";
-            this.button_copy.Size = new System.Drawing.Size(62, 23);
+            this.button_copy.Size = new System.Drawing.Size(114, 42);
             this.button_copy.TabIndex = 6;
             this.button_copy.Text = "Copy";
             this.button_copy.UseVisualStyleBackColor = true;
@@ -172,9 +182,10 @@ namespace DiskReader {
             // 
             // button_rename
             // 
-            this.button_rename.Location = new System.Drawing.Point(193, 3);
+            this.button_rename.Location = new System.Drawing.Point(354, 6);
+            this.button_rename.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_rename.Name = "button_rename";
-            this.button_rename.Size = new System.Drawing.Size(83, 23);
+            this.button_rename.Size = new System.Drawing.Size(152, 42);
             this.button_rename.TabIndex = 7;
             this.button_rename.Text = "Rename";
             this.button_rename.UseVisualStyleBackColor = true;
@@ -182,9 +193,10 @@ namespace DiskReader {
             // 
             // button_set
             // 
-            this.button_set.Location = new System.Drawing.Point(205, 587);
+            this.button_set.Location = new System.Drawing.Point(376, 1084);
+            this.button_set.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_set.Name = "button_set";
-            this.button_set.Size = new System.Drawing.Size(83, 27);
+            this.button_set.Size = new System.Drawing.Size(152, 50);
             this.button_set.TabIndex = 8;
             this.button_set.Text = ". . .";
             this.button_set.UseVisualStyleBackColor = true;
@@ -193,18 +205,20 @@ namespace DiskReader {
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(82, 594);
+            this.label1.Location = new System.Drawing.Point(150, 1097);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.Size = new System.Drawing.Size(126, 25);
             this.label1.TabIndex = 10;
             this.label1.Text = "Manual path:";
             // 
             // btn_refresh
             // 
             this.btn_refresh.Image = ((System.Drawing.Image)(resources.GetObject("btn_refresh.Image")));
-            this.btn_refresh.Location = new System.Drawing.Point(11, 585);
+            this.btn_refresh.Location = new System.Drawing.Point(20, 1080);
+            this.btn_refresh.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btn_refresh.Name = "btn_refresh";
-            this.btn_refresh.Size = new System.Drawing.Size(32, 29);
+            this.btn_refresh.Size = new System.Drawing.Size(59, 54);
             this.btn_refresh.TabIndex = 11;
             this.btn_refresh.UseVisualStyleBackColor = true;
             this.btn_refresh.Click += new System.EventHandler(this.button_refresh_Click);
@@ -214,10 +228,10 @@ namespace DiskReader {
             this.button_file.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.button_file.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
             this.button_file.FlatAppearance.BorderSize = 0;
-            this.button_file.Location = new System.Drawing.Point(-1, 3);
+            this.button_file.Location = new System.Drawing.Point(-2, 6);
             this.button_file.Margin = new System.Windows.Forms.Padding(0);
             this.button_file.Name = "button_file";
-            this.button_file.Size = new System.Drawing.Size(61, 22);
+            this.button_file.Size = new System.Drawing.Size(112, 41);
             this.button_file.TabIndex = 12;
             this.button_file.Text = "Select file";
             this.button_file.UseVisualStyleBackColor = false;
@@ -226,15 +240,17 @@ namespace DiskReader {
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(89, 6);
+            this.label2.Location = new System.Drawing.Point(163, 11);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 13);
+            this.label2.Size = new System.Drawing.Size(172, 25);
             this.label2.TabIndex = 13;
             this.label2.Text = "Directory Manager";
             // 
             // splitContainer2
             // 
-            this.splitContainer2.Location = new System.Drawing.Point(12, 32);
+            this.splitContainer2.Location = new System.Drawing.Point(22, 59);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -242,7 +258,7 @@ namespace DiskReader {
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.splitContainer2.Panel1.Controls.Add(this.label2);
-            this.splitContainer2.Panel1.Margin = new System.Windows.Forms.Padding(11);
+            this.splitContainer2.Panel1.Margin = new System.Windows.Forms.Padding(20, 20, 20, 20);
             // 
             // splitContainer2.Panel2
             // 
@@ -250,15 +266,17 @@ namespace DiskReader {
             this.splitContainer2.Panel2.Controls.Add(this.button_copy);
             this.splitContainer2.Panel2.Controls.Add(this.button_delete);
             this.splitContainer2.Panel2.Controls.Add(this.button_rename);
-            this.splitContainer2.Size = new System.Drawing.Size(276, 61);
-            this.splitContainer2.SplitterDistance = 25;
+            this.splitContainer2.Size = new System.Drawing.Size(506, 113);
+            this.splitContainer2.SplitterDistance = 46;
+            this.splitContainer2.SplitterWidth = 7;
             this.splitContainer2.TabIndex = 14;
             // 
             // button_new
             // 
-            this.button_new.Location = new System.Drawing.Point(-1, 3);
+            this.button_new.Location = new System.Drawing.Point(-2, 6);
+            this.button_new.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_new.Name = "button_new";
-            this.button_new.Size = new System.Drawing.Size(50, 23);
+            this.button_new.Size = new System.Drawing.Size(92, 42);
             this.button_new.TabIndex = 14;
             this.button_new.Text = "New";
             this.button_new.UseVisualStyleBackColor = true;
@@ -266,16 +284,18 @@ namespace DiskReader {
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(63, 7);
+            this.label3.Location = new System.Drawing.Point(116, 13);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label3.Size = new System.Drawing.Size(306, 13);
+            this.label3.Size = new System.Drawing.Size(561, 24);
             this.label3.TabIndex = 15;
             this.label3.Text = ". . .";
             // 
             // splitContainer3
             // 
-            this.splitContainer3.Location = new System.Drawing.Point(292, 32);
+            this.splitContainer3.Location = new System.Drawing.Point(535, 59);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -291,24 +311,27 @@ namespace DiskReader {
             this.splitContainer3.Panel2.Controls.Add(this.label3);
             this.splitContainer3.Panel2.Controls.Add(this.btn_copy);
             this.splitContainer3.Panel2.Controls.Add(this.button_file);
-            this.splitContainer3.Size = new System.Drawing.Size(530, 61);
-            this.splitContainer3.SplitterDistance = 25;
+            this.splitContainer3.Size = new System.Drawing.Size(972, 113);
+            this.splitContainer3.SplitterDistance = 46;
+            this.splitContainer3.SplitterWidth = 7;
             this.splitContainer3.TabIndex = 19;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(241, 6);
+            this.label4.Location = new System.Drawing.Point(442, 11);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.Size = new System.Drawing.Size(126, 25);
             this.label4.TabIndex = 0;
             this.label4.Text = "File Manager";
             // 
             // btn_rename
             // 
-            this.btn_rename.Location = new System.Drawing.Point(475, 2);
+            this.btn_rename.Location = new System.Drawing.Point(871, 4);
+            this.btn_rename.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btn_rename.Name = "btn_rename";
-            this.btn_rename.Size = new System.Drawing.Size(55, 23);
+            this.btn_rename.Size = new System.Drawing.Size(101, 42);
             this.btn_rename.TabIndex = 21;
             this.btn_rename.Text = "Rename";
             this.btn_rename.UseVisualStyleBackColor = true;
@@ -316,9 +339,10 @@ namespace DiskReader {
             // 
             // btn_delete
             // 
-            this.btn_delete.Location = new System.Drawing.Point(420, 2);
+            this.btn_delete.Location = new System.Drawing.Point(770, 4);
+            this.btn_delete.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(49, 23);
+            this.btn_delete.Size = new System.Drawing.Size(90, 42);
             this.btn_delete.TabIndex = 20;
             this.btn_delete.Text = "Delete";
             this.btn_delete.UseVisualStyleBackColor = true;
@@ -326,9 +350,10 @@ namespace DiskReader {
             // 
             // btn_copy
             // 
-            this.btn_copy.Location = new System.Drawing.Point(375, 2);
+            this.btn_copy.Location = new System.Drawing.Point(688, 4);
+            this.btn_copy.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btn_copy.Name = "btn_copy";
-            this.btn_copy.Size = new System.Drawing.Size(39, 23);
+            this.btn_copy.Size = new System.Drawing.Size(72, 42);
             this.btn_copy.TabIndex = 19;
             this.btn_copy.Text = "Copy";
             this.btn_copy.UseVisualStyleBackColor = true;
@@ -337,42 +362,47 @@ namespace DiskReader {
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.diskInfoToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(834, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 4, 0, 4);
+            this.menuStrip1.Size = new System.Drawing.Size(1529, 42);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // diskInfoToolStripMenuItem
             // 
             this.diskInfoToolStripMenuItem.Name = "diskInfoToolStripMenuItem";
-            this.diskInfoToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.diskInfoToolStripMenuItem.Size = new System.Drawing.Size(107, 34);
             this.diskInfoToolStripMenuItem.Text = "DiskInfo";
             this.diskInfoToolStripMenuItem.Click += new System.EventHandler(this.diskInfoToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(88, 34);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(358, 589);
+            this.progressBar1.Location = new System.Drawing.Point(656, 1087);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(218, 25);
+            this.progressBar1.Size = new System.Drawing.Size(400, 46);
             this.progressBar1.TabIndex = 21;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(301, 594);
+            this.label5.Location = new System.Drawing.Point(552, 1097);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.Size = new System.Drawing.Size(96, 25);
             this.label5.TabIndex = 22;
             this.label5.Text = "Progress:";
             // 
@@ -387,27 +417,49 @@ namespace DiskReader {
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(675, 595);
+            this.label6.Location = new System.Drawing.Point(1238, 1098);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(16, 13);
+            this.label6.Size = new System.Drawing.Size(27, 25);
             this.label6.TabIndex = 23;
             this.label6.Text = "...";
             // 
             // btn_stop
             // 
-            this.btn_stop.Location = new System.Drawing.Point(582, 588);
+            this.btn_stop.Location = new System.Drawing.Point(1067, 1086);
+            this.btn_stop.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btn_stop.Name = "btn_stop";
-            this.btn_stop.Size = new System.Drawing.Size(46, 27);
+            this.btn_stop.Size = new System.Drawing.Size(84, 50);
             this.btn_stop.TabIndex = 24;
             this.btn_stop.Text = "Stop";
             this.btn_stop.UseVisualStyleBackColor = true;
             this.btn_stop.Click += new System.EventHandler(this.btn_stop_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(1423, 19);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(0, 25);
+            this.label7.TabIndex = 25;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(1465, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(42, 38);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 26;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 621);
+            this.ClientSize = new System.Drawing.Size(1529, 1146);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btn_stop);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -421,6 +473,7 @@ namespace DiskReader {
             this.Controls.Add(this.button2);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "Form2";
             this.ShowIcon = false;
             this.Text = "File Explorer";
@@ -440,6 +493,7 @@ namespace DiskReader {
             this.splitContainer3.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -478,5 +532,7 @@ namespace DiskReader {
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btn_stop;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
