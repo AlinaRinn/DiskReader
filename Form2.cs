@@ -424,5 +424,11 @@ namespace DiskReader
                 backgroundWorker1.CancelAsync();
             }
         }
+
+        private void rPSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form5 Form = new Form5();
+            Form.ShowDialog();
+        }
     }
 }
