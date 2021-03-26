@@ -19,6 +19,10 @@ namespace DiskReader
             InitializeComponent();
             PopulateTreeView();
             this.treeView1.NodeMouseClick += new TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            backgroundWorker1.WorkerSupportsCancellation = true;
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker2.WorkerSupportsCancellation = true;
+            backgroundWorker2.WorkerReportsProgress = true;
         }
 
         private void diskInfoToolStripMenuItem_Click(object sender, EventArgs e)                                                                                    // Open DiskInfo
@@ -260,11 +264,13 @@ namespace DiskReader
             }
         }
 
+        string sourcedir2, dest;
         private void button_copy_Click(object sender, EventArgs e)                                                                                            // Copy
         {
+            progressBar1.Value = 0;
             if (treeView1.SelectedNode != null)
             {
-                sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+                sourcedir2 = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
             }
             else
             {
@@ -275,9 +281,13 @@ namespace DiskReader
             FolderBrowserDialog folder = new FolderBrowserDialog();
             MessageBox.Show("Choose destination folder", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             folder.ShowDialog();
-            string dest = folder.SelectedPath.ToString();
-            DirectoryCopy(sourcedir, dest, true);
-            button_refresh_Click(sender, e);
+            dest = folder.SelectedPath.ToString();
+            //DirectoryCopy(sourcedir2, dest, true);
+            progressBar1.Value = 0;
+            if (backgroundWorker2.IsBusy != true)
+            {
+                backgroundWorker2.RunWorkerAsync();
+            }
         }
 
         private void button_new_Click(object sender, EventArgs e)                                                                                            // New
@@ -351,10 +361,9 @@ namespace DiskReader
             }
         }
 
-        string dest;
-
         public void btn_copy_Click(object sender, EventArgs e)                                                                                // Copy File
         {
+            progressBar1.Value = 0;
             if (backgroundWorker1.IsBusy != true)
             {
                 backgroundWorker1.RunWorkerAsync();
@@ -364,35 +373,36 @@ namespace DiskReader
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             string sourcePath = label3.Text;
-            if (File.Exists(sourcePath))
-            {
-                FolderBrowserDialog file = new FolderBrowserDialog();
-                file.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-                Thread thread = new Thread(() =>
-                {
-                    if (file.ShowDialog() == DialogResult.OK)
-                    {
-                        dest = file.SelectedPath;
-                    }
-                    try
-                    {
-                        string name = Path.GetFileName(sourcePath);
-                        File.Copy(sourcePath, dest + @"\" + name, true);
-                    }
-                    catch(IOException er)
-                    {
-                        MessageBox.Show(er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                });
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.Start();
-                thread.Join();
-            }
-            else
-            {
-                MessageBox.Show("Choose file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (File.Exists(sourcePath))
+            //{
+            //    FolderBrowserDialog file = new FolderBrowserDialog();
+            //    file.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+            //    Thread thread = new Thread(() =>
+            //    {
+            //        if (file.ShowDialog() == DialogResult.OK)
+            //        {
+            //            dest = file.SelectedPath;
+            //        }
+            //        try
+            //        {
+            //            string name = Path.GetFileName(sourcePath);
+            //            File.Copy(sourcePath, dest + @"\" + name, true);
+            //        }
+            //        catch(IOException er)
+            //        {
+            //            MessageBox.Show(er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //    });
+            //    thread.SetApartmentState(ApartmentState.STA);
+            //    thread.Start();
+            //    thread.Join();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Choose file", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+            CopyingFiles(sourcePath);
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -416,6 +426,31 @@ namespace DiskReader
         {
             progressBar1.Value = e.ProgressPercentage;
         }
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            CopyingDirectoryes(sourcedir2, dest);
+        }
+        private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value += e.ProgressPercentage;
+        }
+        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                label6.Text = "Canceled!";
+            }
+            else if (e.Error != null)
+            {
+                label6.Text = "Error: " + e.Error.Message;
+            }
+            else
+            {
+                label6.Text = "Done!";
+                progressBar1.Value = 100;
+            }
+            button_refresh_Click(sender, e);
+        }
 
         private void btn_stop_Click(object sender, EventArgs e)
         {
@@ -430,5 +465,54 @@ namespace DiskReader
             Form5 Form = new Form5();
             Form.ShowDialog();
         }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void CopyingFiles(string path)
+        {
+            progressBar1.Value = 0;
+            int count = 0;
+            string destPath;
+            do
+            {
+                string dirPath = Path.GetDirectoryName(path);
+                string fileName = Path.GetFileNameWithoutExtension(path) + $"({count})";
+                string fileExtention = Path.GetExtension(path);
+                fileName += fileExtention;
+                destPath = Path.Combine(dirPath, fileName);
+                count++;
+            } while (File.Exists(destPath));
+            FileStream fsOut = new FileStream(destPath, FileMode.Create);
+            FileStream fsIn = new FileStream(path, FileMode.Open);
+            byte[] bt = new byte[1048756];
+            int readByte;
+            while ((readByte = fsIn.Read(bt, 0, bt.Length)) > 0)
+            {
+                fsOut.Write(bt, 0, readByte);
+                backgroundWorker1.ReportProgress((int)(fsIn.Position * 100 / fsIn.Length));
+            }
+            fsIn.Close();
+            fsOut.Close();
+        }
+        private void CopyingDirectoryes(string fromPath, string destPath)
+        {
+            DirectoryInfo[] dirs = (new DirectoryInfo(fromPath)).GetDirectories();
+            foreach (var subDir in dirs)
+            {
+                Directory.CreateDirectory(Path.Combine(destPath, subDir.Name));
+                CopyingDirectoryes(Path.Combine(fromPath, subDir.Name), Path.Combine(destPath, subDir.Name));
+            }
+            string[] filesPath = Directory.GetFiles(fromPath);
+            int countFile = 0;
+            foreach (string filePath in filesPath)
+            {
+                string fileName = Path.GetFileName(filePath);
+                string destFile = Path.Combine(destPath, fileName);
+                File.Copy(filePath, destFile, true);
+                countFile += 1;
+            }
+            backgroundWorker2.ReportProgress(countFile);
+        }
+
     }
 }

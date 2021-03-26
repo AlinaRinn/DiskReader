@@ -52,6 +52,7 @@ namespace DiskReader {
             this.btn_copy = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.diskInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
@@ -60,7 +61,7 @@ namespace DiskReader {
             this.btn_stop = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.rPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -246,7 +247,7 @@ namespace DiskReader {
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.splitContainer2.Panel1.Controls.Add(this.label2);
-            this.splitContainer2.Panel1.Margin = new System.Windows.Forms.Padding(11, 11, 11, 11);
+            this.splitContainer2.Panel1.Margin = new System.Windows.Forms.Padding(11);
             // 
             // splitContainer2.Panel2
             // 
@@ -359,6 +360,13 @@ namespace DiskReader {
             this.diskInfoToolStripMenuItem.Text = "DiskInfo";
             this.diskInfoToolStripMenuItem.Click += new System.EventHandler(this.diskInfoToolStripMenuItem_Click);
             // 
+            // rPSToolStripMenuItem
+            // 
+            this.rPSToolStripMenuItem.Name = "rPSToolStripMenuItem";
+            this.rPSToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.rPSToolStripMenuItem.Text = "RPS";
+            this.rPSToolStripMenuItem.Click += new System.EventHandler(this.rPSToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
@@ -422,19 +430,18 @@ namespace DiskReader {
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(799, 7);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(23, 21);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 26;
             this.pictureBox1.TabStop = false;
             // 
-            // rPSToolStripMenuItem
+            // backgroundWorker2
             // 
-            this.rPSToolStripMenuItem.Name = "rPSToolStripMenuItem";
-            this.rPSToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.rPSToolStripMenuItem.Text = "RPS";
-            this.rPSToolStripMenuItem.Click += new System.EventHandler(this.rPSToolStripMenuItem_Click);
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
+            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
             // Form2
             // 
@@ -517,5 +524,6 @@ namespace DiskReader {
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem rPSToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker backgroundWorker2;
     }
 }
