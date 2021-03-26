@@ -54,6 +54,7 @@ namespace DiskReader {
             this.diskInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fIOdllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -346,6 +347,7 @@ namespace DiskReader {
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.diskInfoToolStripMenuItem,
             this.rPSToolStripMenuItem,
+            this.fIOdllToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -373,6 +375,13 @@ namespace DiskReader {
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // fIOdllToolStripMenuItem
+            // 
+            this.fIOdllToolStripMenuItem.Name = "fIOdllToolStripMenuItem";
+            this.fIOdllToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.fIOdllToolStripMenuItem.Text = "FIO.dll";
+            this.fIOdllToolStripMenuItem.Click += new System.EventHandler(this.fIOdllToolStripMenuItem_Click);
             // 
             // progressBar1
             // 
@@ -525,5 +534,6 @@ namespace DiskReader {
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem rPSToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.ToolStripMenuItem fIOdllToolStripMenuItem;
     }
 }

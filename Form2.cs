@@ -24,7 +24,11 @@ namespace DiskReader
             backgroundWorker2.WorkerSupportsCancellation = true;
             backgroundWorker2.WorkerReportsProgress = true;
         }
-
+        private void fIOdllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form6 Form = new Form6();
+            Form.ShowDialog();
+        }
         private void diskInfoToolStripMenuItem_Click(object sender, EventArgs e)                                                                                    // Open DiskInfo
         {
             Form1 Form = new Form1();
@@ -494,6 +498,7 @@ namespace DiskReader
             fsIn.Close();
             fsOut.Close();
         }
+
         private void CopyingDirectoryes(string fromPath, string destPath)
         {
             DirectoryInfo[] dirs = (new DirectoryInfo(fromPath)).GetDirectories();
