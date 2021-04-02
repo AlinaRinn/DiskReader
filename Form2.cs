@@ -46,6 +46,7 @@ namespace DiskReader
             this.Close();
         }
 
+        public string sourcedir;
         public string path;
         private void PopulateTreeView()                                                                                                                            // Create Tree
         {
@@ -149,7 +150,6 @@ namespace DiskReader
         }
 
         public string selectedNodeText;
-        public string sourcedir;
         private void button_rename_Click(object sender, EventArgs e)                                                                                          // Renaming
         {
             if (treeView1.SelectedNode != null)
@@ -220,7 +220,7 @@ namespace DiskReader
         private void button_delete_Click(object sender, EventArgs e)                                                                                           // Delete
         {
             if (treeView1.SelectedNode != null) {
-                string sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
+                sourcedir = path + @"..\" + @"..\" + treeView1.SelectedNode.FullPath.ToString();
             }
             else
             {
@@ -229,6 +229,7 @@ namespace DiskReader
             }
             try
             {
+                //MessageBox.Show(path + "   " +sourcedir , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Directory.Delete(sourcedir, true);
             }
             catch (System.IO.IOException)
@@ -436,7 +437,7 @@ namespace DiskReader
         }
         private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBar1.Value += e.ProgressPercentage;
+            progressBar1.Value = e.ProgressPercentage;
         }
         private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -515,8 +516,12 @@ namespace DiskReader
                 string destFile = Path.Combine(destPath, fileName);
                 File.Copy(filePath, destFile, true);
                 countFile += 1;
+                if (countFile < 100)
+                {
+                    backgroundWorker2.ReportProgress(countFile);
+                }
             }
-            backgroundWorker2.ReportProgress(countFile);
+
         }
 
     }
