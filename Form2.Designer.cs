@@ -53,8 +53,8 @@ namespace DiskReader {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.diskInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fIOdllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -369,19 +369,19 @@ namespace DiskReader {
             this.rPSToolStripMenuItem.Text = "RPS";
             this.rPSToolStripMenuItem.Click += new System.EventHandler(this.rPSToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
             // fIOdllToolStripMenuItem
             // 
             this.fIOdllToolStripMenuItem.Name = "fIOdllToolStripMenuItem";
             this.fIOdllToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.fIOdllToolStripMenuItem.Text = "FIO.dll";
             this.fIOdllToolStripMenuItem.Click += new System.EventHandler(this.fIOdllToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // progressBar1
             // 

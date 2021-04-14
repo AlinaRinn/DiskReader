@@ -9,11 +9,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace DiskReader
 {
     public partial class Form2 : Form
     {
+        /*WINAPI constants*/
+        const int WM_DEVICECHANGE = 0x219;
+        const int DBT_DEVICEARRIVAL = 0x8000;
+        const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
+        const int DBT_DEVTYP_VOLUME = 0x00000002;
         public Form2()
         {
             InitializeComponent();
@@ -471,7 +477,49 @@ namespace DiskReader
             Form.ShowDialog();
         }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///        Environment.NewLine ///  DateTime.Now.ToString() ///////////////////////////////////////////////////
+
+        protected override void WndProc(ref Message m)
+        {
+            DEV_BROADCAST_HDR pHdr;
+            switch (m.Msg)
+            {
+                case WM_DEVICECHANGE:
+                    switch ((int)m.WParam)
+                    {
+                        case DBT_DEVICEARRIVAL://устройство подключено
+
+                            pHdr = (DEV_BROADCAST_HDR)Marshal.PtrToStructure(m.LParam, typeof(DEV_BROADCAST_HDR));
+                            if (pHdr.dbch_devicetype == DBT_DEVTYP_VOLUME)
+                            {
+                                MessageBox.Show("Volume was inserted", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+
+                            break;
+
+                        case DBT_DEVICEREMOVECOMPLETE://устройство отключено
+
+                            pHdr = (DEV_BROADCAST_HDR)Marshal.PtrToStructure(m.LParam, typeof(DEV_BROADCAST_HDR));
+                            if (pHdr.dbch_devicetype == DBT_DEVTYP_VOLUME)
+                            {
+                                MessageBox.Show("Volume was removed", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+
+                            break;
+                    }
+                    break;
+            }
+
+            base.WndProc(ref m);
+        }
+        public struct DEV_BROADCAST_HDR
+        {
+            public int dbch_size;
+            public int dbch_devicetype;
+            public int dbch_reserved;
+        }
+
 
         private void CopyingFiles(string path)
         {
