@@ -54,6 +54,7 @@ namespace DiskReader {
             this.diskInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fIOdllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowsRenamerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
@@ -348,6 +349,7 @@ namespace DiskReader {
             this.diskInfoToolStripMenuItem,
             this.rPSToolStripMenuItem,
             this.fIOdllToolStripMenuItem,
+            this.windowsRenamerToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -375,6 +377,13 @@ namespace DiskReader {
             this.fIOdllToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.fIOdllToolStripMenuItem.Text = "FIO.dll";
             this.fIOdllToolStripMenuItem.Click += new System.EventHandler(this.fIOdllToolStripMenuItem_Click);
+            // 
+            // windowsRenamerToolStripMenuItem
+            // 
+            this.windowsRenamerToolStripMenuItem.Name = "windowsRenamerToolStripMenuItem";
+            this.windowsRenamerToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
+            this.windowsRenamerToolStripMenuItem.Text = "Windows\' manager";
+            this.windowsRenamerToolStripMenuItem.Click += new System.EventHandler(this.windowsRenamerToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -472,6 +481,9 @@ namespace DiskReader {
             this.Controls.Add(this.button2);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(850, 660);
+            this.MinimumSize = new System.Drawing.Size(850, 660);
             this.Name = "Form2";
             this.ShowIcon = false;
             this.Text = "File Explorer";
@@ -535,5 +547,6 @@ namespace DiskReader {
         private System.Windows.Forms.ToolStripMenuItem rPSToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.ToolStripMenuItem fIOdllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowsRenamerToolStripMenuItem;
     }
 }

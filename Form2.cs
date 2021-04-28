@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace DiskReader
 {
@@ -546,6 +547,12 @@ namespace DiskReader
             }
             fsIn.Close();
             fsOut.Close();
+        }
+
+        private void windowsRenamerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form7 Form = new Form7();
+            Form.ShowDialog();
         }
 
         private void CopyingDirectoryes(string fromPath, string destPath)

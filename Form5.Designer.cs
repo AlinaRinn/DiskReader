@@ -173,6 +173,7 @@ namespace DiskReader
             this.Controls.Add(this.button_scissors);
             this.Controls.Add(this.button_paper);
             this.Controls.Add(this.button_rock);
+            this.MaximizeBox = false;
             this.Name = "Form5";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
