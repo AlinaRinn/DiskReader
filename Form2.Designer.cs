@@ -64,6 +64,7 @@ namespace DiskReader {
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.registryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -350,6 +351,7 @@ namespace DiskReader {
             this.rPSToolStripMenuItem,
             this.fIOdllToolStripMenuItem,
             this.windowsRenamerToolStripMenuItem,
+            this.registryToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -461,6 +463,13 @@ namespace DiskReader {
             this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
+            // registryToolStripMenuItem
+            // 
+            this.registryToolStripMenuItem.Name = "registryToolStripMenuItem";
+            this.registryToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.registryToolStripMenuItem.Text = "Registry";
+            this.registryToolStripMenuItem.Click += new System.EventHandler(this.registryToolStripMenuItem_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -548,5 +557,6 @@ namespace DiskReader {
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.ToolStripMenuItem fIOdllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsRenamerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registryToolStripMenuItem;
     }
 }

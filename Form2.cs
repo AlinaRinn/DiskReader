@@ -555,6 +555,12 @@ namespace DiskReader
             Form.ShowDialog();
         }
 
+        private void registryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form8 Form = new Form8();
+            Form.ShowDialog();
+        }
+
         private void CopyingDirectoryes(string fromPath, string destPath)
         {
             DirectoryInfo[] dirs = (new DirectoryInfo(fromPath)).GetDirectories();
