@@ -53,8 +53,8 @@ namespace DiskReader {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.diskInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rPSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fIOdllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsRenamerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label5 = new System.Windows.Forms.Label();
@@ -64,7 +64,6 @@ namespace DiskReader {
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.registryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -349,7 +348,6 @@ namespace DiskReader {
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.diskInfoToolStripMenuItem,
             this.rPSToolStripMenuItem,
-            this.fIOdllToolStripMenuItem,
             this.windowsRenamerToolStripMenuItem,
             this.registryToolStripMenuItem,
             this.aboutToolStripMenuItem});
@@ -373,19 +371,19 @@ namespace DiskReader {
             this.rPSToolStripMenuItem.Text = "RPS";
             this.rPSToolStripMenuItem.Click += new System.EventHandler(this.rPSToolStripMenuItem_Click);
             // 
-            // fIOdllToolStripMenuItem
-            // 
-            this.fIOdllToolStripMenuItem.Name = "fIOdllToolStripMenuItem";
-            this.fIOdllToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.fIOdllToolStripMenuItem.Text = "FIO.dll";
-            this.fIOdllToolStripMenuItem.Click += new System.EventHandler(this.fIOdllToolStripMenuItem_Click);
-            // 
             // windowsRenamerToolStripMenuItem
             // 
             this.windowsRenamerToolStripMenuItem.Name = "windowsRenamerToolStripMenuItem";
             this.windowsRenamerToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
             this.windowsRenamerToolStripMenuItem.Text = "Windows\' manager";
             this.windowsRenamerToolStripMenuItem.Click += new System.EventHandler(this.windowsRenamerToolStripMenuItem_Click);
+            // 
+            // registryToolStripMenuItem
+            // 
+            this.registryToolStripMenuItem.Name = "registryToolStripMenuItem";
+            this.registryToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.registryToolStripMenuItem.Text = "Registry";
+            this.registryToolStripMenuItem.Click += new System.EventHandler(this.registryToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -462,13 +460,6 @@ namespace DiskReader {
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
             this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
-            // 
-            // registryToolStripMenuItem
-            // 
-            this.registryToolStripMenuItem.Name = "registryToolStripMenuItem";
-            this.registryToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.registryToolStripMenuItem.Text = "Registry";
-            this.registryToolStripMenuItem.Click += new System.EventHandler(this.registryToolStripMenuItem_Click);
             // 
             // Form2
             // 
@@ -555,7 +546,6 @@ namespace DiskReader {
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem rPSToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private System.Windows.Forms.ToolStripMenuItem fIOdllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsRenamerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registryToolStripMenuItem;
     }

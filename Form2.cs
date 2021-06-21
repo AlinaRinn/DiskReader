@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Diagnostics;
 
 namespace DiskReader
 {
@@ -30,11 +22,6 @@ namespace DiskReader
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker2.WorkerSupportsCancellation = true;
             backgroundWorker2.WorkerReportsProgress = true;
-        }
-        private void fIOdllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form6 Form = new Form6();
-            Form.ShowDialog();
         }
         private void diskInfoToolStripMenuItem_Click(object sender, EventArgs e)                                                                                    // Open DiskInfo
         {
